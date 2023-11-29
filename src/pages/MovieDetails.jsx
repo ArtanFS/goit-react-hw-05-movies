@@ -7,6 +7,7 @@ const MovieDetails = () => {
   //   const movie = getMoviesById(id);
   const location = useLocation();
   const backLinkHref = location.state?.from ?? '/';
+  // console.log(location.state.from);
   const [movie, setMovie] = useState({});
   const BASE = 'https://www.themoviedb.org/t/p/w600_and_h900_bestv2';
 
@@ -30,8 +31,8 @@ const MovieDetails = () => {
     };
     handleImages();
   }, [movieId]);
-  const URLa = BASE + movie.poster_path;
-  console.log(URLa);
+  // const URLa = BASE + movie.poster_path;
+  // console.log(URLa);
 
   return (
     <main>

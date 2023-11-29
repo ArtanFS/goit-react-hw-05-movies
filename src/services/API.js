@@ -12,3 +12,11 @@ export async function getMoviesById(id) {
   const { data } = await axios(`movie/${id}`);
   return data;
 }
+
+export async function getMoviesByQuery(query) {
+  let params = {
+    query,
+  };
+  const { data } = await axios('search/movie', { params });
+  return data.results;
+}
