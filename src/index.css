@@ -49,3 +49,7 @@ textarea {
   line-height: 1.15;
   margin: 0px;
 }
+
+a {
+  text-decoration: none;
+}
