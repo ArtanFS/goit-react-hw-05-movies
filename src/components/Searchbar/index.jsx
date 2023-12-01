@@ -1,6 +1,11 @@
 import { useState } from 'react';
-import css from './Searchbar.module.css';
 import { FiSearch } from 'react-icons/fi';
+import {
+  SearchForm,
+  SearchFormButton,
+  SearchFormInput,
+  SearchbarWrap,
+} from './Searchbar.styled';
 
 const Searchbar = ({ onSubmit }) => {
   const [search, setSearch] = useState('');
@@ -19,23 +24,21 @@ const Searchbar = ({ onSubmit }) => {
   };
 
   return (
-    <header className={css.Searchbar}>
-      <form className={css.SearchForm} onSubmit={onSubmitForm}>
-        <button type="submit" className={css.SearchForm_button}>
-          <FiSearch size="22px" />
-        </button>
-
-        <input
-          className={css.SearchForm_input}
+    <SearchbarWrap>
+      <SearchForm onSubmit={onSubmitForm}>
+        <SearchFormInput
           type="text"
           autoComplete="off"
           autoFocus
-          placeholder="Search images and photos"
+          placeholder="Search movies"
           value={search}
           onChange={handleChange}
         />
-      </form>
-    </header>
+        <SearchFormButton type="submit">
+          <FiSearch size="18" />
+        </SearchFormButton>
+      </SearchForm>
+    </SearchbarWrap>
   );
 };
 

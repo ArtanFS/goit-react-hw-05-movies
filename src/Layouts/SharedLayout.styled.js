@@ -16,12 +16,21 @@ export const Nav = styled.nav`
 export const HeaderNavLink = styled(NavLink)`
   font-size: 20px;
   font-weight: 500;
-  color: #3f51b5;
-  &:hover,
-  &:focus {
-    color: #091a75;
+  &:hover {
+    color: #3f51b5;
   }
   &.active {
-    color: #871024;
+    position: relative;
+    color: #3f51b5;
+  }
+  &.active::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    border-radius: 2px;
+    background-color: #3f51b5;
   }
 `;

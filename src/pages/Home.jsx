@@ -4,30 +4,25 @@ import { getMovies } from 'services/API';
 
 const Home = () => {
   const [movies, setMovies] = useState([]);
+  const [error, setError] = useState('');
 
   useEffect(() => {
-    const handleImages = async () => {
+    const fatchMovies = async () => {
       try {
-        // setIsLoading(true);
-        // setLoadMore(false);
         const data = await getMovies();
         setMovies(() => [...data]);
-        // setLoadMore(page < Math.ceil(data.totalHits / 12));
-        // setError('');
+        setError('');
       } catch (error) {
-        console.log('error:-->', error.message);
-
-        // setError(error.message);
-      } finally {
-        // setIsLoading(false);
+        setError(error.message);
       }
     };
-    handleImages();
+    fatchMovies();
   }, []);
-
   return (
     <main>
-      <MoviesList movies={movies} />
+      {movies && <MoviesList movies={movies} />}
+      {movies.length === 0 && 'No movies'}
+      {error === 0 && 'Error'}
     </main>
   );
 };
