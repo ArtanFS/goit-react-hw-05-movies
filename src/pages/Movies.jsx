@@ -6,6 +6,8 @@ import { getMoviesByQuery } from '../services/API';
 
 const Movies = () => {
   const [movies, setMovies] = useState([]);
+  const [isLoading, setIsLoading] = useState(1);
+
   // const [query, setQuery] = useState('');
 
   // const products = getProducts();
@@ -26,7 +28,7 @@ const Movies = () => {
   useEffect(() => {
     const handleImages = async () => {
       try {
-        // setIsLoading(true);
+        setIsLoading(2);
         // setLoadMore(false);
         const data = await getMoviesByQuery(productName);
         setMovies(() => [...data]);
@@ -38,7 +40,7 @@ const Movies = () => {
 
         // setError(error.message);
       } finally {
-        // setIsLoading(false);
+        setIsLoading(1);
       }
     };
     handleImages();
@@ -51,7 +53,7 @@ const Movies = () => {
   return (
     <main>
       <Searchbar onSubmit={onSubmit} />
-      <MoviesList movies={movies} />
+      {movies.length !== 0 ? <MoviesList movies={movies} /> : isLoading}
     </main>
   );
 };

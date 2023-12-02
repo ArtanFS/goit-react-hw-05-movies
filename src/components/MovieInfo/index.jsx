@@ -2,7 +2,7 @@ import { Suspense } from 'react';
 import { Link, Outlet } from 'react-router-dom';
 
 export const MovieInfo = ({ movie }) => {
-  console.log('movie :>> ', movie);
+  console.log('movieInfo :>> ', movie);
   const date = new Date(movie.release_date);
   return (
     <div>
@@ -34,11 +34,12 @@ export const MovieInfo = ({ movie }) => {
             <Link to="reviews">Reviews</Link>
           </li>
         </ul>
+      </div>
+      <div>
         <Suspense fallback={<div>Loading page...</div>}>
           <Outlet />
         </Suspense>
       </div>
-      <div></div>
     </div>
   );
 };

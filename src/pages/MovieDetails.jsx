@@ -11,24 +11,25 @@ const MovieDetails = () => {
   const backLinkHref = location.state?.from ?? '/';
   // console.log(location.state.from);
   const [movie, setMovie] = useState({});
+  const [isLoading, setIsLoading] = useState(1);
+
   // const BASE = 'https://www.themoviedb.org/t/p/w600_and_h900_bestv2';
 
   useEffect(() => {
     const handleImages = async () => {
       try {
-        // setIsLoading(true);
+        setIsLoading(2);
         // setLoadMore(false);
         const data = await getMoviesById(movieId);
         setMovie(data);
         // setLoadMore(page < Math.ceil(data.totalHits / 12));
         // setError('');
-        // console.log(data);
       } catch (error) {
         console.log('error:-->', error.message);
 
         // setError(error.message);
       } finally {
-        // setIsLoading(false);
+        setIsLoading(1);
       }
     };
     handleImages();
@@ -38,8 +39,9 @@ const MovieDetails = () => {
 
   return (
     <main>
+      {console.log(Boolean(movie.title))}
       <BackLink to={backLinkHref}>Go back</BackLink>
-      <MovieInfo movie={movie} />
+      {movie.title ? <MovieInfo movie={movie} /> : isLoading}
     </main>
   );
 };

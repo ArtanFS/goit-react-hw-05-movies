@@ -5,16 +5,19 @@ import { getMovies } from 'services/API';
 const Home = () => {
   const [movies, setMovies] = useState([]);
   const [error, setError] = useState('');
-  console.log('movies :>> ', movies);
+  const [isLoading, setIsLoading] = useState(1);
 
   useEffect(() => {
     const fetchMovies = async () => {
       try {
+        setIsLoading(2);
         const data = await getMovies();
-        setMovies(() => [...data]);
+        setMovies([...data]);
         setError('');
-      } catch (error) {
-        setError(error.message);
+      } catch (err) {
+        setError(err.message);
+      } finally {
+        setIsLoading(1);
       }
     };
     movies.length === 0 && fetchMovies();
@@ -22,10 +25,9 @@ const Home = () => {
 
   return (
     <main>
-      {console.log('movies :>> ', movies)}
-      {movies && <MoviesList movies={movies} />}
-      {movies.length === 0 && 'No movies'}
-      {error === 0 && 'Error'}
+      {movies.length !== 0 ? <MoviesList movies={movies} /> : isLoading}
+      {/* {movies.length === 0 && 'No movies'}
+      {error === 0 && 'Error'} */}
     </main>
   );
 };
