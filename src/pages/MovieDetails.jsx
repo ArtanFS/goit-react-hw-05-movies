@@ -3,43 +3,39 @@ import { useParams, useLocation } from 'react-router-dom';
 import { getMoviesById } from 'services/API';
 import BackLink from '../components/BackLink';
 import MovieInfo from '../components/MovieInfo';
+import Loader from 'components/Loader';
+import Error from 'components/Error';
 
 const MovieDetails = () => {
+  const [movie, setMovie] = useState({});
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState('');
   const { movieId } = useParams();
-  //   const movie = getMoviesById(id);
   const location = useLocation();
   const backLinkHref = location.state?.from ?? '/';
-  // console.log(location.state.from);
-  const [movie, setMovie] = useState({});
-  const [isLoading, setIsLoading] = useState(1);
 
   useEffect(() => {
-    const handleImages = async () => {
+    const fetchMovie = async () => {
       try {
-        setIsLoading(2);
-        // setLoadMore(false);
+        setIsLoading(true);
         const data = await getMoviesById(movieId);
         setMovie(data);
-        // setLoadMore(page < Math.ceil(data.totalHits / 12));
-        // setError('');
+        setError('');
       } catch (error) {
-        console.log('error:-->', error.message);
-
-        // setError(error.message);
+        setError(error.message);
       } finally {
-        setIsLoading(1);
+        setIsLoading(false);
       }
     };
-    handleImages();
+    fetchMovie();
   }, [movieId]);
-  // const URLa = BASE + movie.poster_path;
-  // console.log(URLa);
 
   return (
     <main>
-      {console.log(Boolean(movie.title))}
       <BackLink to={backLinkHref}>Go back</BackLink>
-      {movie.title ? <MovieInfo movie={movie} /> : isLoading}
+      {isLoading && <Loader />}
+      {movie.title && <MovieInfo movie={movie} />}
+      {error && <Error err={error} />}
     </main>
   );
 };
