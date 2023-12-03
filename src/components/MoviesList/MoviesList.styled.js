@@ -7,7 +7,7 @@ export const MoviesListWrap = styled.div`
 export const MoviesItems = styled.ul`
   display: inline-flex;
   flex-direction: column;
-  gap: 5px;
+  gap: 6px;
 `;
 
 export const MoviesItem = styled.li`
