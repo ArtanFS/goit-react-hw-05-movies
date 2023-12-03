@@ -5,6 +5,7 @@ import MoviesList from '../components/MoviesList';
 import Searchbar from '../components/Searchbar';
 import Loader from '../components/Loader';
 import Error from '../components/Error';
+import Noitems from '../components/Noitems';
 
 const Movies = () => {
   const [movies, setMovies] = useState([]);
@@ -12,6 +13,7 @@ const Movies = () => {
   const [error, setError] = useState('');
   const [searchParams, setSearchParams] = useSearchParams();
   const movieTitle = searchParams.get('query') ?? '';
+  const isMovies = Boolean(movies.length);
 
   const onSubmit = query => {
     const nextParams = query !== '' ? { query } : {};
@@ -38,7 +40,10 @@ const Movies = () => {
     <main>
       <Searchbar onSubmit={onSubmit} />
       {isLoading && <Loader />}
-      {movies.length !== 0 && <MoviesList movies={movies} />}
+      {isMovies && <MoviesList movies={movies} />}
+      {!isMovies && movieTitle && !isLoading && !error && (
+        <Noitems item="movies" query="query" />
+      )}
       {error && <Error err={error} />}
     </main>
   );

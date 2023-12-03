@@ -20,3 +20,8 @@ export async function getMoviesByQuery(query) {
   const { data } = await axios('search/movie', { params });
   return data.results;
 }
+
+export async function getMoviesReviews(id) {
+  const { data } = await axios(`movie/${id}/reviews`);
+  return data.results;
+}

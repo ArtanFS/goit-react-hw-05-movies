@@ -3,8 +3,8 @@ import { useParams, useLocation } from 'react-router-dom';
 import { getMoviesById } from 'services/API';
 import BackLink from '../components/BackLink';
 import MovieInfo from '../components/MovieInfo';
-import Loader from 'components/Loader';
-import Error from 'components/Error';
+import Loader from '../components/Loader';
+import Error from '../components/Error';
 
 const MovieDetails = () => {
   const [movie, setMovie] = useState({});

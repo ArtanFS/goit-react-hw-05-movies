@@ -8,6 +8,7 @@ const Home = () => {
   const [movies, setMovies] = useState([]);
   const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const isMovies = Boolean(movies.length);
 
   useEffect(() => {
     const fetchMovies = async () => {
@@ -22,13 +23,13 @@ const Home = () => {
         setIsLoading(false);
       }
     };
-    movies.length === 0 && fetchMovies();
-  }, [movies.length]);
+    !isMovies && fetchMovies();
+  }, [isMovies]);
 
   return (
     <main>
       {isLoading && <Loader />}
-      {movies.length !== 0 && <MoviesList movies={movies} />}
+      {isMovies && <MoviesList movies={movies} />}
       {error && <Error err={error} />}
     </main>
   );
