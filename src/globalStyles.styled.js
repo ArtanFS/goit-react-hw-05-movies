@@ -1,4 +1,6 @@
-@import-normalize;
+import { createGlobalStyle } from 'styled-components';
+
+const GlobalStyle = createGlobalStyle`
 
 body {
   margin: 0;
@@ -6,10 +8,10 @@ body {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
-  color: #212121;
-  background-color: #fff;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+    color: #212121;
+  background-color: #fff;
 }
 
 code {
@@ -54,4 +56,7 @@ textarea {
 a {
   text-decoration: none;
   color: inherit;
-}
+  }
+`;
+
+export default GlobalStyle;
