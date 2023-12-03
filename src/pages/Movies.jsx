@@ -31,7 +31,7 @@ const Movies = () => {
         setIsLoading(false);
       }
     };
-    fetchMovies();
+    movieTitle && fetchMovies();
   }, [movieTitle]);
 
   return (
