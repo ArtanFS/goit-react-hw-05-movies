@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
 import { useParams, useLocation } from 'react-router-dom';
 import { getMoviesById } from 'services/API';
-import { BackLink } from '../components/BackLink';
-import { MovieInfo } from '../components/MovieInfo';
+import BackLink from '../components/BackLink';
+import MovieInfo from '../components/MovieInfo';
 
 const MovieDetails = () => {
   const { movieId } = useParams();
@@ -12,8 +12,6 @@ const MovieDetails = () => {
   // console.log(location.state.from);
   const [movie, setMovie] = useState({});
   const [isLoading, setIsLoading] = useState(1);
-
-  // const BASE = 'https://www.themoviedb.org/t/p/w600_and_h900_bestv2';
 
   useEffect(() => {
     const handleImages = async () => {

@@ -1,16 +1,13 @@
 import { Suspense } from 'react';
 import { Link, Outlet } from 'react-router-dom';
 
-export const MovieInfo = ({ movie }) => {
+const MovieInfo = ({ movie }) => {
   console.log('movieInfo :>> ', movie);
   const date = new Date(movie.release_date);
   return (
     <div>
       <img
-        src={
-          'https://www.themoviedb.org/t/p/w600_and_h900_bestv2' +
-          movie.poster_path
-        }
+        src={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`}
         alt={movie.title}
         width="200"
         height="300"
@@ -43,3 +40,5 @@ export const MovieInfo = ({ movie }) => {
     </div>
   );
 };
+
+export default MovieInfo;

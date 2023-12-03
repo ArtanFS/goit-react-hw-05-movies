@@ -1,59 +1,45 @@
 import { useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
+import { getMoviesByQuery } from '../services/API';
 import MoviesList from '../components/MoviesList';
 import Searchbar from '../components/Searchbar';
-import { getMoviesByQuery } from '../services/API';
+import Loader from '../components/Loader';
+import Error from '../components/Error';
 
 const Movies = () => {
   const [movies, setMovies] = useState([]);
-  const [isLoading, setIsLoading] = useState(1);
-
-  // const [query, setQuery] = useState('');
-
-  // const products = getProducts();
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState('');
   const [searchParams, setSearchParams] = useSearchParams();
-  const productName = searchParams.get('query') ?? '';
+  const movieTitle = searchParams.get('query') ?? '';
 
   const onSubmit = query => {
     const nextParams = query !== '' ? { query } : {};
     setSearchParams(nextParams);
-    // if (query !== searchData) {
-    //   setQuery(searchData);
-    // setMovies([]);
-    // }
   };
 
-  // console.log(productName);
-
   useEffect(() => {
-    const handleImages = async () => {
+    const fetchMovies = async () => {
       try {
-        setIsLoading(2);
-        // setLoadMore(false);
-        const data = await getMoviesByQuery(productName);
+        setIsLoading(true);
+        const data = await getMoviesByQuery(movieTitle);
         setMovies(() => [...data]);
-        // setLoadMore(page < Math.ceil(data.totalHits / 12));
-        // setError('');
-        // console.log('data', data);
+        setError('');
       } catch (error) {
-        console.log('error:-->', error.message);
-
-        // setError(error.message);
+        setError(error.message);
       } finally {
-        setIsLoading(1);
+        setIsLoading(false);
       }
     };
-    handleImages();
-  }, [productName]);
-
-  // const visibleProducts = products.filter(product =>
-  //   product.name.toLowerCase().includes(productName.toLowerCase())
-  // );
+    fetchMovies();
+  }, [movieTitle]);
 
   return (
     <main>
       <Searchbar onSubmit={onSubmit} />
-      {movies.length !== 0 ? <MoviesList movies={movies} /> : isLoading}
+      {isLoading && <Loader />}
+      {movies.length !== 0 && <MoviesList movies={movies} />}
+      {error && <Error err={error} />}
     </main>
   );
 };
