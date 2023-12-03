@@ -31,12 +31,10 @@ const Reviews = () => {
 
   return (
     <>
-      <>
-        {isLoading && <Loader />}
-        {isReviews && <ReviewsItems reviews={reviews} />}
-        {error && <Error err={error} />}
-        {!isReviews && !isLoading && !error && <Noitems item="reviews" />}
-      </>
+      {isLoading && <Loader />}
+      {isReviews && <ReviewsItems reviews={reviews} />}
+      {error && <Error err={error} />}
+      {!isReviews && !isLoading && !error && <Noitems item="reviews" />}
     </>
   );
 };
