@@ -23,8 +23,8 @@ const Home = () => {
         setIsLoading(false);
       }
     };
-    !isMovies && fetchMovies();
-  }, [isMovies]);
+    fetchMovies();
+  }, []);
 
   return (
     <main>

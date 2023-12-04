@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useParams, useLocation } from 'react-router-dom';
 import { getMoviesById } from 'services/API';
 import BackLink from '../components/BackLink';
@@ -12,7 +12,7 @@ const MovieDetails = () => {
   const [error, setError] = useState('');
   const { movieId } = useParams();
   const location = useLocation();
-  const backLinkHref = location.state?.from ?? '/';
+  const backLinkHref = useRef(location.state?.from ?? '/');
 
   useEffect(() => {
     const fetchMovie = async () => {
@@ -32,7 +32,7 @@ const MovieDetails = () => {
 
   return (
     <main>
-      <BackLink to={backLinkHref}>Go back</BackLink>
+      <BackLink to={backLinkHref.current}>Go back</BackLink>
       {isLoading && <Loader />}
       {movie.title && <MovieInfo movie={movie} />}
       {error && <Error err={error} />}
