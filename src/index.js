@@ -7,7 +7,7 @@ import GlobalStyle from 'globalStyles.styled';
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <BrowserRouter basename="goit-react-hw-05-movies">
+    <BrowserRouter basename="/goit-react-hw-05-movies">
       <Normalize />
       <GlobalStyle />
       <App />
